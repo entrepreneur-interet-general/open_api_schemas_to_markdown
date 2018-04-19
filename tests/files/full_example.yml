@@ -1,0 +1,313 @@
+openapi: "3.0.0"
+info:
+  version: "0"
+  title: SECMAR
+paths:
+  /demo:
+    get:
+      summary: Demo
+      responses:
+        '200':
+          description: OK
+components:
+  schemas:
+    Operation:
+      properties:
+        operation_id:
+          type: integer
+          format: int64
+          description: Le numéro unique de l'opération
+          example: 1119920371
+        pourquoi_alerte:
+          type: string
+          enum: [SAR, MAS, DIV, SUR]
+          description: >
+            La catégorie du type d'intervention.
+          example: SAR
+        moyen_alerte:
+          type: string
+          description: Comment l'alerte a-t-elle été donnée
+          example: Téléphone mobile à terre
+        qui_alerte:
+          type: string
+          description: Qui a donné l'alerte
+          example: Loueur de bateaux
+        categorie_qui_alerte:
+          type: string
+          description: Catégorie du lanceur d'alerte
+          example: Autorité maritime française à terre
+        cross:
+          type: string
+          description: CROSS en charge de la coordination de l'opération
+          example: Gris-Nez
+        departement:
+          type: string
+          nullable: true
+          description: Département où se déroule l'opération
+          example: Seine-Maritime
+        est_metropolitain:
+          type: boolean
+          description: Indique si l'opération se déroule en France métropolitaine
+          example: true
+        evenement:
+          type: string
+          description: "Évenement qui a donné lieu à l'opération"
+          example: Rupture de mouillage
+        categorie_evenement:
+          type: string
+          description: "Catégorie de l'événement ayant donné lieu à l'opération"
+          example: "Accidents individuels à personnes embarquées"
+        autorite:
+          type: string
+          description: Autorité en charge de la coordination de l'opération
+          example: Préfet maritime
+        sous_autorite:
+          type: string
+          description: Sous-autorité en charge de la coordination de l'opération
+          example: SG-Mer
+        zone_responsabilite:
+          type: string
+          description: Où se situe l'intervention
+          example: Port et accès
+        latitude:
+          type: number
+          format: float
+          description: Latitude de l'opération au format EPSG:4326 WGS84
+          example: 48.3977
+        longitude:
+          type: number
+          format: float
+          description: Longitude de l'opération au format EPSG:4326 WGS84
+          example: -4.9550
+        vent_direction:
+          type: number
+          format: int32
+          nullable: true
+          minimum: 0
+          maximum: 360
+          description: Direction du vent, en degrès
+          example: 42
+        vent_force:
+          type: number
+          format: int32
+          nullable: true
+          minimum: 0
+          maximum: 12
+          description: Force du vent selon l'échelle de Beaufort
+          example: 3
+        mer_force:
+          type: number
+          format: int32
+          nullable: true
+          minimum: 0
+          maximum: 9
+          description: État de la mer selon l'échelle de Douglas
+          example: 3
+        date_heure_reception_alerte:
+          type: string
+          format: "date-time"
+          description: Date et heure de réception de l'alerte en UTC au format ISO8601
+          example: "1992-12-06T15:07:00Z"
+        date_heure_fin_operation:
+          type: string
+          format: "date-time"
+          description: Date et heure de fin de l'opération en UTC au format ISO8601
+          example: "1992-12-06T15:07:00Z"
+        numero_sitrep:
+          type: integer
+          format: int32
+          minimum: 1
+          description: Numéro de situation report. Les numéros de SITREP sont remis à 0 tous les ans au 1er janvier 0h heure UTC et est incrémentale par la suite. La numérotation des SITREP est idépendante par les CROSS.
+        cross_sitrep:
+          type: string
+          description: "Numéro unique identifiant l'opération utilisant le CROSS coordinateur de l'opération et le numéro de SITREP"
+          example: "Corsen 2017/42"
+        fuseau_horaire:
+          type: string
+          description: "Fuseau horaire du CROSS coordonnant l'opération. Le fuseau horaire correspond à la timezone database de l'IANA"
+          example: Europe/Paris
+    ResultatHumain:
+      properties:
+        operation_id:
+          type: integer
+          format: int64
+          description: Le numéro unique de l'opération
+          example: 1119920371
+        categorie_personne:
+          type: string
+          description: Indique la catégorie de personne impliquée dans le bilan humain
+          example: Pêcheur français
+        resultat_humain:
+          type: string
+          description: Description du bilan humain
+          example: Personne secourue
+        nombre:
+          type: number
+          format: int32
+          minimum: 0
+          description: Nombre de personnes impliquées dans ce bilan
+          example: 3
+        dont_nombre_blesse:
+          type: number
+          format: int32
+          minimum: 0
+          description: Indique le nombre de personnes blessées dans le bilan
+          example: 1
+    Moyen:
+      properties:
+        operation_id:
+          type: integer
+          format: int64
+          description: Le numéro unique de l'opération
+          example: 1119920371
+        numero_ordre:
+          type: integer
+          format: int32
+          description: Indique l'ordre de déploiement des moyens. Le premier moyen mis en oeuvre est numéroté 1, le suivant 2 etc.
+          example: 1
+        moyen:
+          type: string
+          description: Une description du moyen mis en oeuvre
+          example: Hélicoptère léger
+        categorie_moyen:
+          type: string
+          description: Catégorie du moyen mis en oeuvre
+          example: Avion-Hélicoptère
+        domaine_action:
+          type: string
+          description: Domaine d'action du moyen mis en oeuvre
+          enum: [Nautique, Terrestre, Aérien]
+          example: Nautique
+        autorite_moyen:
+          type: string
+          description: Autorité de rattachement du moyen mis en oeuvre
+          example: Gendarmerie Nationale
+        date_heure_debut:
+          type: string
+          format: "date-time"
+          description: Date et heure de mise en oeuvre du moyen en UTC au format ISO8601
+          example: "1992-12-06T15:07:00Z"
+        date_heure_fin:
+          type: string
+          format: "date-time"
+          description: Date et heure de fin de mise en oeuvre du moyen en UTC au format ISO8601
+          example: "1992-12-06T15:07:00Z"
+    Flotteur:
+     properties:
+        operation_id:
+          type: integer
+          format: int64
+          description: Le numéro unique de l'opération
+          example: 1119920371
+        numero_ordre:
+          type: integer
+          format: int32
+          description: "Indique l'ordre d'implication des flotteurs. Le premier flotteur impliqué est numéroté 1, le suivant 2 etc."
+          example: 1
+        pavillon:
+          type: string
+          description: Indique si le pavillon du flotteur impliqué est français ou étranger
+          enum: [Étranger, Français]
+          example: "Français"
+        resultat_flotteur:
+          type: string
+          description: État du flotteur à la fin de l'intervention
+          example: "Remorqué"
+        type_flotteur:
+          type: string
+          description: Indique le type précis du flotteur
+          example: Planche à voile
+        categorie_flotteur:
+          type: string
+          enum: [Commerce, Pêche, Plaisance, Loisir nautique, Aéronef, Autre]
+          description: Grande catégorie à laquelle appartient le flotteur
+          example: "Plaisance"
+        numero_immatriculation:
+          type: string
+          description: Numéro d'immatriculation du navire
+          example: 0beec7b5ea3f0fdbc95d0dd47f3c5bc275da8a33
+        marque:
+          type: string
+          description: Marque du flotteur
+          example: "SOPA"
+        nom_serie:
+          type: string
+          description: Nom de série
+          example: "CYRUS"
+        assurance:
+          type: boolean
+          description: Indique si le flotteur possède une assurance
+          nullable: true
+          example: true
+        longueur:
+          type: number
+          format: float
+          description: Longueur du flotteur en mètres
+          nullable: true
+          example: 4.5
+        largeur:
+          type: number
+          format: float
+          description: Largeur du flotteur en mètres
+          nullable: true
+          example: 1.67
+        jauge:
+          type: number
+          format: float
+          description: Jauge du flotteur en tonneaux
+          nullable: true
+          example: 5.24
+        nombre_personne_recommande:
+          type: number
+          format: int32
+          description: Nombre de personnes recommandées à bord du flotteur
+          nullable: true
+          example: 8
+        puissance_maximum_autorisee:
+          type: number
+          format: float
+          description: Puissance maximum autorisée sur le flotteur en kilowatt
+          nullable: true
+          example: 7.36
+        surface_voilure:
+          type: number
+          format: float
+          description: Surface de la voilure en mètres carré
+          nullable: true
+          example: 39.30
+        puissance_moteurs:
+          type: number
+          format: float
+          description: Puissance totale des moteurs du flotteur en kilowatt
+          nullable: true
+          example: 25.76
+        coque:
+          type: string
+          description: Type de coque du flotteur
+          nullable: true
+          example: MONOCOQUE HABITABLE
+        materiau:
+          type: string
+          description: Matériau de construction du navire
+          nullable: true
+          example: POLYESTER/EPOXY
+        propulsion:
+          type: string
+          description: Mode de propulsion du flotteur
+          nullable: true
+          example: Moteur à essence
+        type_moteur:
+          type: string
+          description: Type de moteur
+          nullable: true
+          example: HORS-BORD
+        type_navire:
+          type: string
+          description: Type du navire
+          nullable: true
+          example: VOILIER
+        utilisation:
+          type: string
+          description: Quel usage est fait du flotteur
+          nullable: true
+          example: USAGE PERSONNEL

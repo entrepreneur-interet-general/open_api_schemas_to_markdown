@@ -15,12 +15,18 @@ class Converter(object):
         with open(self.input_filepath, 'r', encoding='utf-8') as f:
             content = yaml.safe_load(f)
 
+        self.ensure_openapi_3(content)
+
         res = []
         for object_name, values in content['components']['schemas'].iteritems():
             res.append(ObjectFormatter(object_name, values).format())
 
         with open(self.output_filepath, 'w', encoding='utf-8') as out:
             out.write(''.join(res))
+
+    def ensure_openapi_3(self, content):
+        if not content.get('openapi', '').startswith('3.'):
+            raise ValueError('Expected an OpenAPI 3 specification file')
 
 
 class ObjectFormatter(object):
@@ -50,11 +56,16 @@ class ObjectFormatter(object):
         return self.values['properties']
 
     def field_properties(self, values):
-        res = OrderedDict()
+        def beautify(value):
+            if type(value) == list:
+                return ', '.join(value)
+            return value
+        acc = OrderedDict()
         for k, v in values.iteritems():
             if k not in ['example', 'type', 'format', 'description']:
-                res[k] = v
-        return '<br>'.join(['{}: {}'.format(k, v) for k, v in res.iteritems()])
+                acc[k] = v
+        result = ['{}: {}'.format(k, beautify(v)) for k, v in acc.iteritems()]
+        return '<br>'.join(result)
 
     def type(self, values):
         if 'format' in values:
