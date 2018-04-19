@@ -26,3 +26,6 @@ jobs:
       - run:
           name: Run test suite
           command: nosetests .
+
+      - run: python setup.py develop
+      - run: oa-to-md -h

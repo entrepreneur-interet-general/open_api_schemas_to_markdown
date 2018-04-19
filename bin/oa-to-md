@@ -1,0 +1,16 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+from __future__ import print_function
+import argparse
+
+from open_api_schemas_to_markdown.converter import Converter
+
+parser = argparse.ArgumentParser()
+parser.add_argument("input_file", help="The OpenAPI 3 YAML file")
+parser.add_argument("output_file", help="The desired output path of the Markdown file")
+args = parser.parse_args()
+
+converter = Converter(args.input_file, args.output_file)
+converter.convert()
+
+print('Output saved to {path}!'.format(path=args.output_file))

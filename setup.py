@@ -1,4 +1,5 @@
-from distutils.core import setup
+from setuptools import setup
+
 setup(
     name='open_api_schemas_to_markdown',
     license='MIT',
@@ -8,6 +9,7 @@ setup(
     author='Peter Downs',
     author_email='hi@antoine-augusti.fr',
     url='https://github.com/entrepreneur-interet-general/open_api_schemas_to_markdown',
+    scripts=['bin/oa-to-md'],
     keywords=['openapi', 'documentation', 'markdown', 'gfm'],
     install_requires=['PyYAML']
 )
