@@ -42,8 +42,7 @@
 |latitude|number($float)|Latitude de l'opération au format EPSG:4326 WGS84|48.3977||
 |operation_id|integer($int64)|Le numéro unique de l'opération|1119920371||
 |moyen_alerte|string|Comment l'alerte a-t-elle été donnée|Téléphone mobile à terre||
-|pourquoi_alerte|string|La catégorie du type d'intervention.
-|SAR|enum: SAR, MAS, DIV, SUR|
+|pourquoi_alerte|string|La catégorie du type d'intervention.|SAR|enum: SAR, MAS, DIV, SUR|
 ## Flotteur Model
 |Field|Type|Description|Example|Properties|
 |---|---|---|---|---|

@@ -21,8 +21,7 @@ components:
         pourquoi_alerte:
           type: string
           enum: [SAR, MAS, DIV, SUR]
-          description: >
-            La catégorie du type d'intervention.
+          description: La catégorie du type d'intervention.
           example: SAR
         moyen_alerte:
           type: string
