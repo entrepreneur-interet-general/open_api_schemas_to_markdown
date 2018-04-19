@@ -5,4 +5,4 @@
 ## Notice
 This software is available under the MIT license and was developed as part of the [Entrepreneur d'Intérêt Général program](https://entrepreneur-interet-general.etalab.gouv.fr) by the French government.
 
-Projet développé dans le cadre du programme « [Entrepreneur d’intérêt général]((https://entrepreneur-interet-general.etalab.gouv.fr) ».
+Projet développé dans le cadre du programme « [Entrepreneur d’intérêt général](https://entrepreneur-interet-general.etalab.gouv.fr) ».
