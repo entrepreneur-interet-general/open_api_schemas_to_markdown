@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from codecs import open
+from builtins import str
 from collections import OrderedDict
 import yaml
+import yamlordereddictloader
 
 
 class Converter(object):
@@ -13,12 +15,13 @@ class Converter(object):
 
     def convert(self):
         with open(self.input_filepath, 'r', encoding='utf-8') as f:
-            content = yaml.safe_load(f)
+            content = yaml.load(f, Loader=yamlordereddictloader.Loader)
 
         self.ensure_openapi_3(content)
 
         res = []
-        for object_name, values in content['components']['schemas'].iteritems():
+        schemas = OrderedDict(content['components']['schemas'])
+        for object_name, values in schemas.items():
             res.append(ObjectFormatter(object_name, values).format())
 
         with open(self.output_filepath, 'w', encoding='utf-8') as out:
@@ -41,12 +44,12 @@ class ObjectFormatter(object):
             '|Field|Type|Description|Example|Properties|',
             '|---|---|---|---|---|'
         ]
-        for field, values in self.properties().iteritems():
+        for field, values in self.properties().items():
             template = '|{field}|{type}|{description}|{example}|{properties}|'.format(
                 field=field,
                 type=self.type(values),
                 description=values.get('description', ''),
-                example=unicode(values.get('example', '')),
+                example=str(values.get('example', '')),
                 properties=self.field_properties(values)
             )
             res.append(template)
@@ -61,10 +64,10 @@ class ObjectFormatter(object):
                 return ', '.join(value)
             return value
         acc = OrderedDict()
-        for k, v in values.iteritems():
+        for k, v in OrderedDict(values).items():
             if k not in ['example', 'type', 'format', 'description']:
                 acc[k] = v
-        result = ['{}: {}'.format(k, beautify(v)) for k, v in acc.iteritems()]
+        result = ['{}: {}'.format(k, beautify(v)) for k, v in acc.items()]
         return '<br>'.join(result)
 
     def type(self, values):

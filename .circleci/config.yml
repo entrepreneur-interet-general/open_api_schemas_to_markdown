@@ -1,31 +1,55 @@
-version: 2
+workflows:
+  version: 2
+  test:
+    jobs:
+      - test-2.7
+      - test-3.5
+      - test-3.6
+      - test-latest
 jobs:
-  build:
+  test-3.6: &test-template
     docker:
-      - image: circleci/python:2.7.14
+      - image: circleci/python:3.6
     working_directory: ~/repo
-
     steps:
       - checkout
       - run: sudo apt-get install python-dev
 
       - restore_cache:
-          key: requirements-{{ checksum "requirements.txt" }}
+          keys:
+          - v1-dependencies-{{ checksum "setup.py" }}
+          - v1-dependencies-
       - run:
-          name: Install Python deps in a venv
+          name: Install dependencies
           command: |
-            virtualenv -p /usr/bin/python2.7 venv
-            source venv/bin/activate
-            pip install -r requirements.txt -r requirements-dev.txt
-            echo "source $(pwd)/venv/bin/activate" >> $BASH_ENV
+            python -m venv venv || virtualenv -p /usr/bin/python2.7 venv
+            . venv/bin/activate
+            pip install -e .[dev]
       - save_cache:
-          key: requirements-{{ checksum "requirements.txt" }}
           paths:
-            - "venv"
+            - ./venv
+          key: v1-dependencies-{{ checksum "setup.py" }}
 
       - run:
           name: Run test suite
-          command: nosetests .
+          command: |
+            . venv/bin/activate
+            nosetests .
 
-      - run: python setup.py develop
-      - run: oa-to-md -h
+      - run:
+          name: Can run binary script
+          command: |
+            . venv/bin/activate
+            oa-to-md -h
+  test-3.5:
+    <<: *test-template
+    docker:
+      - image: circleci/python:3.5
+  test-2.7:
+    <<: *test-template
+    docker:
+      - image: circleci/python:2.7
+  test-latest:
+    <<: *test-template
+    docker:
+      - image: circleci/python:latest
