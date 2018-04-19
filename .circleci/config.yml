@@ -8,7 +8,6 @@ jobs:
     steps:
       - checkout
       - run: sudo apt-get install python-dev
-      - run: sudo pip install nose
 
       - restore_cache:
           key: requirements-{{ checksum "requirements.txt" }}
