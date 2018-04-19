@@ -6,11 +6,11 @@ import argparse
 from open_api_schemas_to_markdown.converter import Converter
 
 parser = argparse.ArgumentParser()
-parser.add_argument("input_file", help="The OpenAPI 3 YAML file")
-parser.add_argument("output_file", help="The desired output path of the Markdown file")
+parser.add_argument("input_filepath", help="The OpenAPI 3 YAML filepath")
+parser.add_argument("output_filepath", help="The desired output filepath of the Markdown file")
 args = parser.parse_args()
 
-converter = Converter(args.input_file, args.output_file)
+converter = Converter(args.input_filepath, args.output_filepath)
 converter.convert()
 
-print('Output saved to {path}!'.format(path=args.output_file))
+print('Output saved to {path}!'.format(path=args.output_filepath))
