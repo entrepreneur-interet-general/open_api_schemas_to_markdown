@@ -17,7 +17,7 @@ jobs:
           command: |
             virtualenv -p /usr/bin/python2.7 venv
             source venv/bin/activate
-            pip install -r requirements.txt
+            pip install -r requirements.txt -r requirements-dev.txt
             echo "source $(pwd)/venv/bin/activate" >> $BASH_ENV
       - save_cache:
           key: requirements-{{ checksum "requirements.txt" }}
