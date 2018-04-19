@@ -9,4 +9,5 @@ setup(
     author_email='hi@antoine-augusti.fr',
     url='https://github.com/entrepreneur-interet-general/open_api_schemas_to_markdown',
     keywords=['openapi', 'documentation', 'markdown', 'gfm'],
+    install_requires=['pyaml']
 )
