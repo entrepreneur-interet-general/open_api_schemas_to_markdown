@@ -1,0 +1,13 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/python:2.7.14
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+      - run: sudo pip install nose
+      - run:
+          name: Run test suite
+          command: nosetests .

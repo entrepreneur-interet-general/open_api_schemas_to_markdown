@@ -1,0 +1,40 @@
+openapi: "3.0.0"
+info:
+  version: "0"
+  title: Demo
+paths:
+  /demo:
+    get:
+      summary: Demo
+      responses:
+        '200':
+          description: OK
+components:
+  schemas:
+    ResultatHumain:
+      properties:
+        operation_id:
+          type: integer
+          format: int64
+          description: Le numéro unique de l'opération
+          example: 1119920371
+        categorie_personne:
+          type: string
+          description: Indique la catégorie de personne impliquée dans le bilan humain
+          example: Pêcheur français
+        resultat_humain:
+          type: string
+          description: Description du bilan humain
+          example: Personne secourue
+        nombre:
+          type: number
+          format: int32
+          minimum: 0
+          description: Nombre de personnes impliquées dans ce bilan
+          example: 3
+        dont_nombre_blesse:
+          type: number
+          format: int32
+          minimum: 0
+          description: Indique le nombre de personnes blessées dans le bilan
+          example: 1
