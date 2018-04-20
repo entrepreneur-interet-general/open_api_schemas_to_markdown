@@ -75,7 +75,7 @@ And if you render it:
 
 ## Installation
 ```
-pip install open_api_schemas_to_markdown
+pip install open-api-schemas-to-markdown
 ```
 
 ## Usage
