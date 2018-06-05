@@ -10,7 +10,6 @@ def filepath(f):
     return op.join(op.abspath(op.join(__file__, op.pardir, op.pardir)), f)
 
 
-
 class TestMain(unittest.TestCase):
     def test_check_for_open_api(self):
         in_file = filepath('tests/files/openapi_2_petstore_minimal.yml')
@@ -24,16 +23,25 @@ class TestMain(unittest.TestCase):
 
         self.run_for_files(in_file, expected_file)
 
+    def test_simple_config_fr_locale(self):
+        in_file = filepath('tests/files/simple_config.yml')
+        expected_file = filepath('tests/files/expected_simple_config_fr.md')
+
+        self.run_for_files(in_file, expected_file, locale='fr')
+
     def test_full_example(self):
         in_file = filepath('tests/files/full_example.yml')
         expected_file = filepath('tests/files/expected_full_example.md')
 
         self.run_for_files(in_file, expected_file)
 
-    def run_for_files(self, in_file, expected_file):
+    def run_for_files(self, in_file, expected_file, locale=None):
         out_file = '/tmp/out.md'
 
-        Converter(in_file, out_file).convert()
+        if locale is None:
+            Converter(in_file, out_file).convert()
+        else:
+            Converter(in_file, out_file, locale=locale).convert()
 
         self.assertEquals(
             open(out_file, 'r').readlines(),

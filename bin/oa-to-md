@@ -4,10 +4,23 @@ from __future__ import print_function
 import argparse
 
 from open_api_schemas_to_markdown.converter import Converter
+from open_api_schemas_to_markdown.translations import Translator
+
+
+available_locales = Translator.available_locales_str()
 
 parser = argparse.ArgumentParser()
 parser.add_argument("input_filepath", help="The OpenAPI 3 YAML filepath")
-parser.add_argument("output_filepath", help="The desired output filepath of the Markdown file")
+parser.add_argument(
+    "output_filepath",
+    help="The desired output filepath of the Markdown file"
+)
+parser.add_argument(
+    "locale",
+    nargs='?',
+    const='en',
+    help="Locale to use when generating the Markdown file. Available: " + available_locales
+)
 args = parser.parse_args()
 
 converter = Converter(args.input_filepath, args.output_filepath)

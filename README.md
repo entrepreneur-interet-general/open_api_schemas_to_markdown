@@ -82,11 +82,13 @@ pip install open-api-schemas-to-markdown
 The package provides a command line tool.
 ```
 $ oa-to-md -h
-usage: oa-to-md [-h] input_filepath output_filepath
+usage: oa-to-md [-h] input_filepath output_filepath [locale]
 
 positional arguments:
   input_filepath   The OpenAPI 3 YAML filepath
   output_filepath  The desired output filepath of the Markdown file
+  locale           Locale to use when generating the Markdown file. Available:
+                   en, fr
 
 optional arguments:
   -h, --help       show this help message and exit
