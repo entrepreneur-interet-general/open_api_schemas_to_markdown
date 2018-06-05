@@ -23,7 +23,7 @@ parser.add_argument(
 )
 args = parser.parse_args()
 
-converter = Converter(args.input_filepath, args.output_filepath)
+converter = Converter(args.input_filepath, args.output_filepath, args.locale)
 converter.convert()
 
 print('Output saved to {path}!'.format(path=args.output_filepath))
