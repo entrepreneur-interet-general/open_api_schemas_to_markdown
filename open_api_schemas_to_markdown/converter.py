@@ -6,12 +6,15 @@ from collections import OrderedDict
 import yaml
 import yamlordereddictloader
 
+from open_api_schemas_to_markdown.translations import Translator
+
 
 class Converter(object):
-    def __init__(self, input_filepath, output_filepath):
+    def __init__(self, input_filepath, output_filepath, locale='en'):
         super(Converter, self).__init__()
         self.input_filepath = input_filepath
         self.output_filepath = output_filepath
+        self.locale = locale
 
     def convert(self):
         with open(self.input_filepath, 'r', encoding='utf-8') as f:
@@ -22,7 +25,9 @@ class Converter(object):
         res = []
         schemas = OrderedDict(content['components']['schemas'])
         for object_name, values in schemas.items():
-            res.append(ObjectFormatter(object_name, values).format())
+            res.append(
+                ObjectFormatter(object_name, values, self.locale).format()
+            )
 
         with open(self.output_filepath, 'w', encoding='utf-8') as out:
             out.write(''.join(res))
@@ -33,15 +38,16 @@ class Converter(object):
 
 
 class ObjectFormatter(object):
-    def __init__(self, object_name, values):
+    def __init__(self, object_name, values, locale):
         super(ObjectFormatter, self).__init__()
         self.object_name = object_name
         self.values = values
+        self.locale = locale
 
     def format(self):
         res = [
             '## {name} Model'.format(name=self.object_name),
-            '|Field|Type|Description|Example|Properties|',
+            self.table_header(),
             '|---|---|---|---|---|'
         ]
         for field, values in self.properties().items():
@@ -54,6 +60,18 @@ class ObjectFormatter(object):
             )
             res.append(template)
         return '\n'.join(res) + '\n'
+
+    def table_header(self):
+        translation = Translator.for_locale(self.locale)
+        return '|{list}|'.format(
+            list='|'.join([
+                translation['field'],
+                translation['type'],
+                translation['description'],
+                translation['example'],
+                translation['properties'],
+            ])
+        )
 
     def properties(self):
         return self.values['properties']
