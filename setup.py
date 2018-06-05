@@ -4,7 +4,7 @@ setup(
     name='open_api_schemas_to_markdown',
     license='MIT',
     packages=['open_api_schemas_to_markdown'],
-    version='0.1.3',
+    version='0.2',
     description='Generate Markdown documentation from OpenAPI 3 Components Schemas',
     author='Antoine Augusti',
     author_email='hi@antoine-augusti.fr',
