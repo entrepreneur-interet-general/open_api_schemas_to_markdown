@@ -1,4 +1,4 @@
-## Operation Model
+## Operation
 |Field|Type|Description|Example|Properties|
 |---|---|---|---|---|
 |operation_id|integer($int64)|Le numéro unique de l'opération|1119920371||
@@ -24,7 +24,7 @@
 |numero_sitrep|integer($int32)|Numéro de situation report. Les numéros de SITREP sont remis à 0 tous les ans au 1er janvier 0h heure UTC et est incrémentale par la suite. La numérotation des SITREP est idépendante par les CROSS.||minimum: 1|
 |cross_sitrep|string|Numéro unique identifiant l'opération utilisant le CROSS coordinateur de l'opération et le numéro de SITREP|Corsen 2017/42||
 |fuseau_horaire|string|Fuseau horaire du CROSS coordonnant l'opération. Le fuseau horaire correspond à la timezone database de l'IANA|Europe/Paris||
-## ResultatHumain Model
+## ResultatHumain
 |Field|Type|Description|Example|Properties|
 |---|---|---|---|---|
 |operation_id|integer($int64)|Le numéro unique de l'opération|1119920371||
@@ -32,7 +32,7 @@
 |resultat_humain|string|Description du bilan humain|Personne secourue||
 |nombre|number($int32)|Nombre de personnes impliquées dans ce bilan|3|minimum: 0|
 |dont_nombre_blesse|number($int32)|Indique le nombre de personnes blessées dans le bilan|1|minimum: 0|
-## Moyen Model
+## Moyen
 |Field|Type|Description|Example|Properties|
 |---|---|---|---|---|
 |operation_id|integer($int64)|Le numéro unique de l'opération|1119920371||
@@ -43,7 +43,7 @@
 |autorite_moyen|string|Autorité de rattachement du moyen mis en oeuvre|Gendarmerie Nationale||
 |date_heure_debut|string($date-time)|Date et heure de mise en oeuvre du moyen en UTC au format ISO8601|1992-12-06T15:07:00Z||
 |date_heure_fin|string($date-time)|Date et heure de fin de mise en oeuvre du moyen en UTC au format ISO8601|1992-12-06T15:07:00Z||
-## Flotteur Model
+## Flotteur
 |Field|Type|Description|Example|Properties|
 |---|---|---|---|---|
 |operation_id|integer($int64)|Le numéro unique de l'opération|1119920371||

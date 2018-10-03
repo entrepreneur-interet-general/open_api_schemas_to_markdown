@@ -53,7 +53,7 @@ components:
 
 The package will produce a Markdown file from the YAML specification file with the following content:
 ```markdown
-## ResultatHumain Model
+## ResultatHumain
 |Field|Type|Description|Example|Properties|
 |---|---|---|---|---|
 |operation_id|integer($int64)|Le numéro unique de l'opération|1119920371||
@@ -64,7 +64,7 @@ The package will produce a Markdown file from the YAML specification file with t
 ```
 
 And if you render it:
-## ResultatHumain Model
+## ResultatHumain
 |Field|Type|Description|Example|Properties|
 |---|---|---|---|---|
 |operation_id|integer($int64)|Le numéro unique de l'opération|1119920371||

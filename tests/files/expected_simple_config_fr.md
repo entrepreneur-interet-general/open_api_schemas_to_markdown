@@ -1,4 +1,4 @@
-## ResultatHumain Model
+## ResultatHumain
 |Colonne|Type|Description|Exemple|Propriétés|
 |---|---|---|---|---|
 |operation_id|integer($int64)|Le numéro unique de l'opération|1119920371||

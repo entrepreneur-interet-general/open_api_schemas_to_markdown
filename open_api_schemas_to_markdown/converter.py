@@ -46,7 +46,7 @@ class ObjectFormatter(object):
 
     def format(self):
         res = [
-            '## {name} Model'.format(name=self.object_name),
+            '## {name}'.format(name=self.object_name),
             self.table_header(),
             '|---|---|---|---|---|'
         ]
